@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FMP Web Application</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f3f3f3;
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      align-items: center;
+      background: #2c3e50;
+      padding: 12px 20px;
+      border-bottom: 3px solid #1abc9c;
+    }
+    .header-logo {
+      height: 50px;
+      width: auto;
+      margin-right: 15px;
+    }
+    .header-title {
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: #333;
+    }
+    .tab {
+      padding: 14px 20px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    .tab:hover {
+      background: #555;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 150px);
+      border: none;
+    }
+
+    /* Footer */
+    .footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+      .header {
+        padding: 10px;
+      }
+      .header-logo {
+        height: 40px;
+      }
+      .header-title {
+        font-size: 20px;
+      }
+      iframe {
+        height: calc(100vh - 130px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header with Logo -->
+  <div class="header">
+    <img src="dof.png" alt="Logo" class="header-logo">
+    <div class="header-title">Forest Management Planning Information System - Web Application</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+  <!--  <div class="tab" onclick="openPage('home.html')">Home</div> -->
+    <div class="tab" onclick="openPage('map.html')">Map</div>
+    <div class="tab" onclick="openPage('download.html')">Download</div>
+    <div class="tab" onclick="openPage('manual.html')">User Manual</div>
+  </div>
+
+  <!-- Content Frame -->
+  <iframe id="contentFrame" src="map.html"></iframe>
+
+  <!-- Footer -->
+  <div class="footer">
+    © 2025 FMP System | Department of Forestry | Lao Landscapes and Livelihoods Project
+  </div>
+
+  <script>
+    function openPage(page) {
+      document.getElementById("contentFrame").src = page;
+    }
+  </script>
+
+</body>
+</html>

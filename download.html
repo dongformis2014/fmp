@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FMP Data Downloader</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+    }
+
+    h1 { color: #2c3e50; }
+
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #1abc9c;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #16a085; }
+
+    /* Hidden inputs */
+    .hidden {
+      display: none;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <h1>FMP Data Download</h1>
+
+    <!-- Hidden Base URL -->
+    <input id="baseUrl" class="hidden" value="http://103.150.75.205:8080/geoserver">
+
+    <!-- Hidden Workspace -->
+    <input id="workspace" class="hidden" value="fmps">
+
+    <label>Layer Name:</label>
+    <select id="layer">
+      <option value="village">Village boundary</option>
+      <option value="district">District boundary</option>
+      <option value="province">Province boundary</option>
+      <option value="fluz">FLUZ</option>
+	  <option value="fluz">Forest Category</option>
+	  <option value="fluz">Forest Disturbance</option>
+	  <option value="fluz">New Forest Disturbance</option>
+    </select>
+
+    <label>Output Format:</label>
+    <select id="format">
+      <option value="shape-zip">Shapefile (ZIP)</option>
+      <option value="application/json">GeoJSON</option>
+      <option value="csv">CSV</option>
+      <option value="gml2">GML 2.0</option>
+      <option value="gml3">GML 3.0</option>
+    </select>
+
+    <label>Filter (optional):</label>
+    <input id="filter" placeholder="e.g., name_en = 'Bor'">
+
+    <button onclick="downloadData()">Download</button>
+  </div>
+
+  <script>
+    function downloadData() {
+      const baseUrl = document.getElementById('baseUrl').value.trim();
+      const workspace = document.getElementById('workspace').value.trim();
+      const layer = document.getElementById('layer').value.trim();
+      const format = document.getElementById('format').value.trim();
+      const cql = document.getElementById('filter').value.trim();
+
+      let url = `${baseUrl}/${workspace}/wfs?service=WFS&version=1.0.0&request=GetFeature` +
+                `&typeName=${workspace}:${layer}&outputFormat=${format}`;
+
+      if (cql) {
+        url += `&CQL_FILTER=${encodeURIComponent(cql)}`;
+      }
+
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
